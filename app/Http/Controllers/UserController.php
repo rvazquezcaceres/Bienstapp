@@ -113,6 +113,7 @@ class UserController extends Controller
             'email' => $request->email,
         ];
         $user = User::where($data_token)->first();
+
         if($user->password == $request->password)
         {
             $token = new Token($data_token);
@@ -139,12 +140,16 @@ class UserController extends Controller
             $array = ['#','@','!','$','%','&','?','¿','¡','!'];
             // mirar aleatorio de 0 a $array.count, insertar en vez de #
             $newPassword = "ChangePassword".$number_rand."#";
-            var_dump($newPassword);exit();
-            $message = ("El numero para recuperar tu contraseña es: " . $number_rand);
+            //var_dump($newPassword);exit();
+            $message = ("La nueva contraseña es: " . $number_rand);
             $to = $user->email;
             $titulo = 'recuperar contraseña';
             $cabeceras = 'From: recuperar_contraseñas@cev.com'. "\r\n" . 'Replay-To: $user->email' . "\r\n" . 'X-Mailer: PHP/' . phpversion();
             mail($to, $titulo, $message, $cabeceras);
+
+            $user->password = $number_rand;
+            $user->update();
+
             return response()->json([
                 "message" => 'Email enviado'
             ], 200);
