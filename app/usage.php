@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class usage extends Model
 {
-     protected $table = 'usage';
+    protected $table = 'usage';
     protected $fillable = ['day','useTime','location','user_id','application_id'];
     
-    public function new_usage(Request $request)
+    public function register(Request $request)
     {
-        $usage = new usage;
+        $usage = new User;
         $usage->day = $request->day;
         $usage->useTime = $request->useTime;
         $usage->location = $request->location;
