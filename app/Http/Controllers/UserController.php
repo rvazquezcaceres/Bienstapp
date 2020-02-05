@@ -63,7 +63,7 @@ class userController extends Controller
         $user = User::where('email',$email)->first();
         if(isset($user)){
             $user->password = decrypt($user->password);
-            return response()->json(["Success" => $user]);
+            return response()->json($user, 201);
         }else{
             return response()->json(["Error" => "El ususario no existe"]);
         }

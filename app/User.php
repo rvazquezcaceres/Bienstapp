@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class User extends Model
+class user extends Model
 {
     protected $table = 'users';
     protected $fillable = ['name','password','email'];
@@ -15,7 +15,6 @@ class User extends Model
         $user = new User;
         $user->name = $request->name;
         $user->password = encrypt($request->password);
-       // var_dump(encrypt($request->password));exit();
         $user->email = $request->email;
         $user->save();
     }
